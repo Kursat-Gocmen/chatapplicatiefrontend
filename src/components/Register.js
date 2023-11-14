@@ -51,6 +51,7 @@ const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
 
+  const [fullname, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,7 +59,11 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-
+  const onChangeFullName = (e) => {
+    const fullname = e.target.value;
+    setFullName(fullname);
+  };
+  
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
@@ -90,7 +95,7 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, password).then(
+      AuthService.register(username, email, password, fullname).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -133,6 +138,18 @@ const Register = () => {
                   validations={[required, vusername]}
                 />
               </div>
+              
+              <div className="form-group">
+              <label htmlFor="fullname" style={{ color: 'white' }}>Volledige Naam</label>
+              <Input
+                type="text"
+                className="form-control"
+                name="fullname"
+                value={fullname}
+                onChange={onChangeFullName}
+                validations={[required]}
+              />
+            </div>
 
               <div className="form-group">
                 <label htmlFor="email"style={{ color: 'white' }}>Email</label>
