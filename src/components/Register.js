@@ -38,10 +38,10 @@ const vusername = (value) => {
 };
 
 const vpassword = (value) => {
-  if (value.length < 6 || value.length > 40) {
+  if (value.length < 3 || value.length > 40) {
     return (
       <div className="invalid-feedback d-block">
-        Het wachtwoord moet tussen 6 en 40 tekens lang zijn.
+        Het wachtwoord moet tussen 3 en 40 tekens lang zijn.
       </div>
     );
   }
@@ -95,7 +95,7 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, password, fullname).then(
+      AuthService.register(username, fullname, email, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);

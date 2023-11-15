@@ -47,7 +47,7 @@ const App = () => {
         </Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link to={"/"} className="nav-link">
+            <Link className="nav-link">
               Welkom bij X-Chat
             </Link>
           </li>
@@ -55,14 +55,14 @@ const App = () => {
           {showAdminBoard && (
             <li className="nav-item">
               <Link to={"/admin"} className="nav-link">
-                Admin Board
+                User Management
               </Link>
             </li>
           )}
 
           
 
-          {currentUser && (
+          {currentUser && currentUser.roles.includes("ROLE_USER") && (
             <li className="nav-item">
               <Link to={"/user"} className="nav-link">
                 User
