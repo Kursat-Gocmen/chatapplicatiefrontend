@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AuthService from "./services/auth.service";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Profile from "./components/Profile";
-import UserBoard from "./components/UserBoard";
-import AdminBoard from "./components/AdminBoard";
-import AuthVerify from "./common/auth-verify";
-import EventBus from "./common/EventBus";
+import AppRoutes from "./Routes";
 
 
 const App = () => {
@@ -24,13 +18,6 @@ const App = () => {
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
     }
 
-    EventBus.on("logout", () => {
-      logOut();
-    });
-
-    return () => {
-      EventBus.remove("logout");
-    };
   }, []);
 
   const logOut = () => {
@@ -92,17 +79,8 @@ const App = () => {
       </nav>
 
       <div className="container mt-3">
-        <Routes>
-          <Route exact path={"/"} element={<Login />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/profile" element={<Profile />} />
-          <Route path="/user" element={<UserBoard />} />
-          <Route path="/admin" element={<AdminBoard />} />
-        </Routes>
+        <AppRoutes></AppRoutes>
       </div>
-
-      {<AuthVerify logOut={logOut}/>}
     </div>
   );
 };

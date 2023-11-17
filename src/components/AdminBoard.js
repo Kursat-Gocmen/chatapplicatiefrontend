@@ -22,7 +22,7 @@ const UserManagement = () => {
   const handleDelete = (userId) => {
     UserService.deleteUser(userId)
       .then(() => {
-        fetchUsers(); // Refresh na het verwijderen van de user
+        fetchUsers();
       })
       .catch((error) => {
         console.error("Error deleting user:", error);

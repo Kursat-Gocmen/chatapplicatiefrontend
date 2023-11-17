@@ -90,6 +90,8 @@ const Login = () => {
               type="text"
               className="form-control"
               name="username"
+              id="username" 
+              autoComplete="username"
               value={username}
               onChange={onChangeUsername}
               validations={[required]}
@@ -102,6 +104,8 @@ const Login = () => {
               type="password"
               className="form-control"
               name="password"
+              id="password" 
+              autoComplete="password"
               value={password}
               onChange={onChangePassword}
               validations={[required]}
