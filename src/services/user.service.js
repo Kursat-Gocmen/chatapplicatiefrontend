@@ -4,7 +4,7 @@ import authHeader from './auth-header';
 const API_URL = 'http://localhost:8080/api/board/';
 
 //Andere endpoint gedaan omdat Read,Delete in een andere controller zit
-const ENDPOINT = 'http://localhost:8080/users/'
+const ENDPOINT = 'http://localhost:8080/usermanagement/'
 
 //hier laat ik de board van de user zelf zien die is ingelogd
 const getUserBoard = () => {
@@ -19,7 +19,7 @@ const getAdminBoard = () => {
 
 // hier haal ik alle users op die bestaan in de database
 const getAllUsers = () => {
-  return axios.get(ENDPOINT + 'getall', { headers: authHeader() })
+  return axios.get(ENDPOINT + 'users', { headers: authHeader() })
 };
 
 // hier verwijder ik de user uit de database.
