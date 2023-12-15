@@ -27,10 +27,15 @@ const deleteUser = (userId) => {
   return axios.delete(`${ENDPOINT}${userId}`, { headers: authHeader() })
 };
 
+const searchUsers = () => {
+  return axios.get(ENDPOINT + 'usernames', { headers: authHeader() });
+};
+
 const UserService = {
   getAllUsers,
   deleteUser,
   getUserBoard,
+  searchUsers,
   getAdminBoard,
 };
 

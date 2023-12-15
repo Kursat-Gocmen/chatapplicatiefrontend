@@ -15,7 +15,7 @@ const App = () => {
 
     if (user) {
       setCurrentUser(user);
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+      setShowAdminBoard(user.role === "ADMIN_ROLE");
     }
 
   }, []);
@@ -46,13 +46,10 @@ const App = () => {
               </Link>
             </li>
           )}
-
-          
-
-          {currentUser && currentUser.roles.includes("ROLE_USER") && (
+          {currentUser && currentUser.role === "USER_ROLE" && (
             <li className="nav-item">
               <Link to={"/user"} className="nav-link">
-                User
+                Public Chatroom
               </Link>
             </li>
           )}

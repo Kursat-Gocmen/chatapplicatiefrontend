@@ -31,7 +31,7 @@ const Profile = () => {
           <strong>Email:</strong> {currentUser.email}
         </p>
         <p>
-          <strong>role:</strong> {currentUser.roles}
+          <strong>role:</strong> {currentUser.role}
         </p>
       </header>
     </div>
