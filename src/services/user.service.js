@@ -43,6 +43,10 @@ const updateUser = (userId, updatedData) => {
   return axios.put(`${ENDPOINTFORADMIN}${userId}`, updatedData, { headers: authHeader() });
 };
 
+const cleanChatMessages = () => {
+  return axios.delete(ENDPOINTFORCHAT + 'clean', { headers: authHeader() });
+};
+
 const UserService = {
   getAllUsers,
   deleteUser,
@@ -51,6 +55,7 @@ const UserService = {
   getAdminBoard,
   getPublicMessages,
   updateUser,
+  cleanChatMessages,
 };
 
 export default UserService;

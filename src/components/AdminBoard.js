@@ -44,9 +44,22 @@ const UserManagement = () => {
       });
   };
 
+  const handleCleanMessages = () => {
+    UserService.cleanChatMessages()
+      .then(() => {
+        fetchUsers();
+      })
+      .catch((error) => {
+        console.error("Fout bij het verwijderen van de berichten", error);
+      });
+  };
+  
   return (
     <div className="container">
       <h1 style={{ color: "white" }}>User Management</h1>
+      <Button variant="dark" onClick={handleCleanMessages}>
+        Clean Public Chat
+      </Button>
       <div>
         <table className="table mt-3">
           <thead>
