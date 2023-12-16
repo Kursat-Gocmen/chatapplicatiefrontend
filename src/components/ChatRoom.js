@@ -12,6 +12,7 @@ import {
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import '../Chatroom.css';
+import UserService from "../services/user.service";
 
 const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
@@ -19,30 +20,50 @@ const ChatRoom = () => {
   const [nickname, setNickname] = useState('');
   const [stompClient, setStompClient] = useState(null);
 
+  const fetchMessages = () => {
+    UserService.getPublicMessages()
+      .then((response) => {
+        setMessages(response.data);
+      })
+      .catch((error) => {
+        console.error("Fout bij ophalen van berichten.", error);
+      });
+  };
+  
   useEffect(() => {
     const socket = new SockJS('http://localhost:8080/ws');
     const client = Stomp.over(socket);
-
+  
     client.connect({}, () => {
       client.subscribe('/topic/messages', (message) => {
         const receivedMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, receivedMessage]);
       });
+      fetchMessages();
     });
 
     setStompClient(client);
-
+  
     return () => {
       client.disconnect();
     };
-  }, []);
+  }, []); 
 
   const handleNicknameChange = (event) => {
-    setNickname(event.target.value);
+    const { value } = event.target;
+    setNickname(value.slice(0, 15)); 
   };
+  
 
   const handleMessageChange = (event) => {
-    setMessage(event.target.value);
+    const { value } = event.target;
+    setMessage(value.slice(0, 100)); 
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter' && message.trim()) {
+      sendMessage();
+    }
   };
 
   const sendMessage = () => {
@@ -50,8 +71,8 @@ const ChatRoom = () => {
       const chatMessage = {
         nickname,
         content: message,
+        timestamp: new Date().toISOString(), 
       };
-
       stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
       setMessage('');
     }
@@ -67,25 +88,35 @@ const ChatRoom = () => {
             </ListItemAvatar>
             <ListItemText
               primary={
-                <Typography variant="subtitle1">{msg.nickname}</Typography>
+                <React.Fragment>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Typography variant="subtitle1">{msg.nickname}</Typography>
+                    <Typography variant="caption" style={{ marginLeft: '1em' }}>
+                      {new Intl.DateTimeFormat('nl-NL', {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                      }).format(new Date(msg.timestamp))}
+                    </Typography>
+                  </div>
+                </React.Fragment>
               }
               secondary={msg.content}
             />
           </ListItem>
         ))}
       </List>
-
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <TextField
-          placeholder="Enter your nickname"
+          placeholder="Vul je bijnaam in"
           value={nickname}
           onChange={handleNicknameChange}
           autoFocus
         />
         <TextField
-          placeholder="Type a message"
+          placeholder="Typ een bericht"
           value={message}
           onChange={handleMessageChange}
+          onKeyPress={handleKeyPress}
           fullWidth
         />
         <IconButton onClick={sendMessage} disabled={!message.trim()}>

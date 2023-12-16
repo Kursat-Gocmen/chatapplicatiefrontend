@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Login from './components/Login'; 
 import Register from './components/Register'; 
 import Profile from './components/Profile';
@@ -22,15 +22,12 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      
-      {isAuthenticated ? (
+      {isAuthenticated && (
         <>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/user" element={<UserBoard />} />
+          <Route path="/public-chat" element={<UserBoard />} />
           <Route path="/admin" element={<AdminBoard />} />
         </>
-      ) : (
-        <Route path="*" element={<Navigate to="/login" />} />
       )}
     </Routes>
   );

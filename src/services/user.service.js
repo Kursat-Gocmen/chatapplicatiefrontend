@@ -1,34 +1,46 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8080/api/board/';
+const ENDPOINTFORBOARD = 'http://localhost:8080/api/board/';
 
-//Andere endpoint gedaan omdat Read,Delete in een andere controller zit
-const ENDPOINT = 'http://localhost:8080/usermanagement/'
+const ENDPOINTFORCHAT = 'http://localhost:8080/api/chat/';
 
-//hier laat ik de board van de user zelf zien die is ingelogd
+const ENDPOINTFORADMIN = 'http://localhost:8080/usermanagement/'
+
+//hier laat ik de board van de chat zelf zien die is ingelogd.
 const getUserBoard = () => {
-  return axios.get(API_URL + 'user', { headers: authHeader() })
+  return axios.get(ENDPOINTFORBOARD + 'user', { headers: authHeader() })
 };
 
-//hier laat ik de board van de admin zelf zien die is ingelogd
+//hier laat ik de board van de admin zelf zien die is ingelogd.
 
 const getAdminBoard = () => {
-  return axios.get(API_URL + 'admin', { headers: authHeader() })
+  return axios.get(ENDPOINTFORBOARD + 'admin', { headers: authHeader() })
 };
 
-// hier haal ik alle users op die bestaan in de database
+// hier haal ik alle users op die bestaan in de database.
 const getAllUsers = () => {
-  return axios.get(ENDPOINT + 'users', { headers: authHeader() })
+  return axios.get(ENDPOINTFORADMIN + 'users', { headers: authHeader() })
 };
 
-// hier verwijder ik de user uit de database.
+// hier verwijder ik een user uit de database.
 const deleteUser = (userId) => {
-  return axios.delete(`${ENDPOINT}${userId}`, { headers: authHeader() })
+  return axios.delete(`${ENDPOINTFORADMIN}${userId}`, { headers: authHeader() })
 };
 
+// hier haal ik alle users uit de database.
 const searchUsers = () => {
-  return axios.get(ENDPOINT + 'usernames', { headers: authHeader() });
+  return axios.get(ENDPOINTFORADMIN + 'usernames', { headers: authHeader() });
+};
+
+// hier haal ik alle berichten uit de database.
+const getPublicMessages = () => {
+  return axios.get(ENDPOINTFORCHAT + 'messages', { headers: authHeader() });
+};
+
+// hier update ik de user uit de database.
+const updateUser = (userId, updatedData) => {
+  return axios.put(`${ENDPOINTFORADMIN}${userId}`, updatedData, { headers: authHeader() });
 };
 
 const UserService = {
@@ -37,6 +49,8 @@ const UserService = {
   getUserBoard,
   searchUsers,
   getAdminBoard,
+  getPublicMessages,
+  updateUser,
 };
 
 export default UserService;

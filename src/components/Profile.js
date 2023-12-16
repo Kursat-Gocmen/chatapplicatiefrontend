@@ -10,31 +10,36 @@ const Profile = () => {
   }
 
   return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>
-          <strong> Profile </strong>
-        </h3>
-        <p>
-          <strong>token:</strong> {currentUser.token}
-        </p>
-        <p>
-          <strong>Id:</strong> {currentUser.id}
-        </p>
-        <p>
-          <strong>username:</strong> {currentUser.username}
-        </p>
-        <p>
-          <strong>fullname</strong> {currentUser.fullname}
-        </p>
-        <p>
-          <strong>Email:</strong> {currentUser.email}
-        </p>
-        <p>
-          <strong>role:</strong> {currentUser.role}
-        </p>
-      </header>
-    </div>
+    <div className="container mt-5">
+        <div className="text-white text-center">
+          <h3>Mijn Gegevens</h3>
+        </div>
+        <div className="card-body">
+          <ul className="list-group">
+            <li className="list-group-item">
+              <strong>ID:</strong> {currentUser.id}
+            </li>
+            <li className="list-group-item">
+              <strong>Gebruikersnaam:</strong> {currentUser.username}
+            </li>
+            <li className="list-group-item">
+              <strong>Volledige Naam:</strong> {currentUser.fullname}
+            </li>
+            <li className="list-group-item">
+              <strong>Email:</strong> {currentUser.email}
+            </li>
+            <li className="list-group-item">
+              <strong>Rol:</strong> {currentUser.role}
+            </li>
+            <li className="list-group-item">
+              <strong>Token:</strong> 
+              <div style={{ overflowWrap: "break-word" }}>
+                {currentUser.token}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
   );
 };
 

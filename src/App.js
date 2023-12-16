@@ -15,7 +15,7 @@ const App = () => {
 
     if (user) {
       setCurrentUser(user);
-      setShowAdminBoard(user.role === "ADMIN_ROLE");
+      setShowAdminBoard(user.role === "ADMIN");
     }
 
   }, []);
@@ -35,7 +35,7 @@ const App = () => {
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
             <Link className="nav-link">
-              Welkom bij X-Chat
+              MATRIX
             </Link>
           </li>
           
@@ -46,9 +46,9 @@ const App = () => {
               </Link>
             </li>
           )}
-          {currentUser && currentUser.role === "USER_ROLE" && (
+          {currentUser && currentUser.role === "USER" && (
             <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
+              <Link to={"/public-chat"} className="nav-link">
                 Public Chatroom
               </Link>
             </li>
