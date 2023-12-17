@@ -46,7 +46,7 @@ const App = () => {
               </Link>
             </li>
           )}
-          {currentUser && currentUser.role === "USER" && (
+          {currentUser && (
             <li className="nav-item">
               <Link to={"/public-chat"} className="nav-link">
                 Public Chatroom

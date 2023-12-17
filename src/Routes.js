@@ -5,7 +5,7 @@ import Register from './components/Register';
 import Profile from './components/Profile';
 import UserBoard from './components/UserBoard'; 
 import AdminBoard from './components/AdminBoard'; 
-import AuthService from './services/auth.service'; // Replace with the actual path
+import AuthService from './services/auth.service'; 
 
 const AppRoutes = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
