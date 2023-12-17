@@ -123,7 +123,7 @@ const Login = () => {
 
           <div>
           <p style={{ color: 'white' }} className="mb-0">
-             Heb je geen account?{" "}
+             Heb je geen account-?{" "}
              <a href="/register" className="text-white fw-bold" style={{ color: 'blue'}}>
             Registreer nu.
           </a>

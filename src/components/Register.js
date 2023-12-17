@@ -183,7 +183,7 @@ const Register = () => {
 
           <div>
           <p style={{ color: 'white' }} className="mb-0">
-             Heb je al een account?{" "}
+             Heb je al een account-?{" "}
              <a href="/login" className="text-white fw-bold" style={{ color: 'white'}}>
             Log in.
           </a>
