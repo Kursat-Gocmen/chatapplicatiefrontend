@@ -176,14 +176,14 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
+              <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
               </div>
             </div>
           )}
 
           <div>
           <p style={{ color: 'white' }} className="mb-0">
-             Heb je al een account-?{" "}
+             Heb je al een account?{" "}
              <a href="/login" className="text-white fw-bold" style={{ color: 'white'}}>
             Log in.
           </a>

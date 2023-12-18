@@ -17,9 +17,6 @@ const Profile = () => {
         <div className="card-body">
           <ul className="list-group">
             <li className="list-group-item">
-              <strong>ID:</strong> {currentUser.id}
-            </li>
-            <li className="list-group-item">
               <strong>Gebruikersnaam:</strong> {currentUser.username}
             </li>
             <li className="list-group-item">
@@ -27,15 +24,6 @@ const Profile = () => {
             </li>
             <li className="list-group-item">
               <strong>Email:</strong> {currentUser.email}
-            </li>
-            <li className="list-group-item">
-              <strong>Rol:</strong> {currentUser.role}
-            </li>
-            <li className="list-group-item">
-              <strong>Token:</strong> 
-              <div style={{ overflowWrap: "break-word" }}>
-                {currentUser.token}
-              </div>
             </li>
           </ul>
         </div>

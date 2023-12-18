@@ -113,7 +113,7 @@ const Login = () => {
           </div>
   
           <div className="form-group">
-            <button className="btn btn-primary btn-block" disabled={loading}>
+            <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
@@ -123,7 +123,7 @@ const Login = () => {
 
           <div>
           <p style={{ color: 'white' }} className="mb-0">
-             Heb je geen account-?{" "}
+             Heb je geen account?{" "}
              <a href="/register" className="text-white fw-bold" style={{ color: 'blue'}}>
             Registreer nu.
           </a>

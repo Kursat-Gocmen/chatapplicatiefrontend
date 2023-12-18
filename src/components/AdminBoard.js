@@ -8,6 +8,8 @@ const UserManagement = () => {
   const [users, setUsers] = useState([]);
   const [editedUser, setEditedUser] = useState({});
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [deletingUserId, setDeletingUserId] = useState(null);
 
   useEffect(() => {
     fetchUsers();
@@ -24,13 +26,24 @@ const UserManagement = () => {
   };
 
   const handleDelete = (userId) => {
-    UserService.deleteUser(userId)
+    setDeletingUserId(userId);
+    setShowDeleteConfirmation(true);
+  };
+
+  const handleConfirmDelete = () => {
+    UserService.deleteUser(deletingUserId)
       .then(() => {
         fetchUsers();
+        setShowDeleteConfirmation(false);
       })
       .catch((error) => {
         console.error("Fout bij het verwijderen van de account", error);
       });
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteConfirmation(false);
+    setDeletingUserId(null);
   };
 
   const handleSaveEdit = (userId, editedData) => {
@@ -101,16 +114,31 @@ const UserManagement = () => {
         </table>
       </div>
 
-      {/* Edit User Modal */}
+      <Modal show={showDeleteConfirmation} onHide={handleCancelDelete}>
+        <Modal.Header>
+          <Modal.Title>Bevestig het verwijderen</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        Ben je zeker dat je deze gebruiker wilt verwijderen?
+      </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCancelDelete}>
+            Annuleer
+          </Button>
+          <Button variant="danger" onClick={handleConfirmDelete}>
+            Verwijder
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
         <Modal.Header>
-          <Modal.Title>Edit User</Modal.Title>
+          <Modal.Title>Bewerk gebruiker</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            {/* fields for editing username, fullname, email */}
             <Form.Group controlId="formUsername">
-              <Form.Label>Username</Form.Label>
+              <Form.Label>Gebruikersnaam</Form.Label>
               <Form.Control
                 type="text"
                 value={editedUser.username || ""}
@@ -120,7 +148,7 @@ const UserManagement = () => {
               />
             </Form.Group>
             <Form.Group controlId="formFullname">
-              <Form.Label>Full Name</Form.Label>
+              <Form.Label>Volledige Naam</Form.Label>
               <Form.Control
                 type="text"
                 value={editedUser.fullname || ""}
@@ -143,13 +171,13 @@ const UserManagement = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowEditModal(false)}>
-            Close
+            Sluit
           </Button>
           <Button
             variant="primary"
             onClick={() => handleSaveEdit(editedUser.id, editedUser)}
           >
-            Save Changes
+            Opslaan
           </Button>
         </Modal.Footer>
       </Modal>
