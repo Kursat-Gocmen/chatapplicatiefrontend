@@ -12,13 +12,14 @@ import {
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import '../Chatroom.css';
-import UserService from "../services/user.service";
+import UserService from '../services/user.service';
+import AuthService from '../services/auth.service';
 
 const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const [nickname, setNickname] = useState('');
   const [stompClient, setStompClient] = useState(null);
+  const user = AuthService.getCurrentUser();
 
   const fetchMessages = () => {
     UserService.getPublicMessages()
@@ -26,14 +27,14 @@ const ChatRoom = () => {
         setMessages(response.data);
       })
       .catch((error) => {
-        console.error("Fout bij ophalen van berichten.", error);
+        console.error('Fout bij ophalen van berichten.', error);
       });
   };
-  
+
   useEffect(() => {
     const socket = new SockJS('http://localhost:8080/ws');
     const client = Stomp.over(socket);
-  
+
     client.connect({}, () => {
       client.subscribe('/topic/messages', (message) => {
         const receivedMessage = JSON.parse(message.body);
@@ -43,21 +44,15 @@ const ChatRoom = () => {
     });
 
     setStompClient(client);
-  
+
     return () => {
       client.disconnect();
     };
-  }, []); 
-
-  const handleNicknameChange = (event) => {
-    const { value } = event.target;
-    setNickname(value.slice(0, 15)); 
-  };
-  
+  }, []);
 
   const handleMessageChange = (event) => {
     const { value } = event.target;
-    setMessage(value.slice(0, 100)); 
+    setMessage(value.slice(0, 100));
   };
 
   const handleKeyPress = (event) => {
@@ -67,16 +62,16 @@ const ChatRoom = () => {
   };
 
   const sendMessage = () => {
-    if (message.trim()) {
+    if (message.trim() && user && user.username) {
       const chatMessage = {
-        nickname,
+        nickname: user.username,  // Gebruik dezelfde eigenschapsnaam als bij het ontvangen bericht
         content: message,
-        timestamp: new Date().toISOString(), 
+        timestamp: new Date().toISOString(),
       };
       stompClient.send('/app/chat', {}, JSON.stringify(chatMessage));
       setMessage('');
     }
-  };
+  };  
 
   return (
     <div>
@@ -84,13 +79,13 @@ const ChatRoom = () => {
         {messages.map((msg, index) => (
           <ListItem key={index}>
             <ListItemAvatar>
-              <Avatar>{msg.nickname.charAt(0)}</Avatar>
+              <Avatar>{user.username.charAt(0)}</Avatar>
             </ListItemAvatar>
             <ListItemText
               primary={
                 <React.Fragment>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Typography variant="subtitle1">{msg.nickname}</Typography>
+                    <Typography variant="subtitle1">{user.username}</Typography>
                     <Typography variant="caption" style={{ marginLeft: '1em' }}>
                       {new Intl.DateTimeFormat('nl-NL', {
                         hour: 'numeric',
@@ -106,12 +101,6 @@ const ChatRoom = () => {
         ))}
       </List>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <TextField
-          placeholder="Vul je bijnaam in"
-          value={nickname}
-          onChange={handleNicknameChange}
-          autoFocus
-        />
         <TextField
           placeholder="Typ een bericht"
           value={message}

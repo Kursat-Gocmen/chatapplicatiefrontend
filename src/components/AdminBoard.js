@@ -70,7 +70,7 @@ const UserManagement = () => {
   return (
     <div className="container">
       <h1 style={{ color: "white" }}>User Management</h1>
-      <Button variant="dark" onClick={handleCleanMessages}>
+      <Button variant="light" onClick={handleCleanMessages}>
         Clean Public Chat
       </Button>
       <div>
@@ -93,7 +93,7 @@ const UserManagement = () => {
                 <td style={{ color: "white" }}>{user.email}</td>
                 <td>
                   <Button
-                    variant="dark"
+                    variant="primary"
                     onClick={() => {
                       setEditedUser(user);
                       setShowEditModal(true);
@@ -119,8 +119,12 @@ const UserManagement = () => {
           <Modal.Title>Bevestig het verwijderen</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        Ben je zeker dat je deze gebruiker wilt verwijderen?
-      </Modal.Body>
+          Gebruiker zal permanent verliezen:
+          <ul>
+            <li>- Profiel</li>
+            <li>- Berichten</li>
+          </ul>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCancelDelete}>
             Annuleer
