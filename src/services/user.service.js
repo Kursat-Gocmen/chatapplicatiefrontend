@@ -5,7 +5,7 @@ const ENDPOINTFORBOARD = 'http://localhost:8080/api/board/';
 
 const ENDPOINTFORCHAT = 'http://localhost:8080/api/chat/';
 
-const ENDPOINTFORADMIN = 'http://localhost:8080/usermanagement/'
+const ENDPOINTFORADMIN = 'http://localhost:8080/api/usermanagement/'
 
 //hier laat ik de board van de chat zelf zien die is ingelogd.
 const getUserBoard = () => {
@@ -28,7 +28,7 @@ const deleteUser = (userId) => {
   return axios.delete(`${ENDPOINTFORADMIN}${userId}`, { headers: authHeader() })
 };
 
-// hier haal ik alle users uit de database.
+// hier haal ik alle namen uit de database.
 const searchUsers = () => {
   return axios.get(ENDPOINTFORADMIN + 'usernames', { headers: authHeader() });
 };

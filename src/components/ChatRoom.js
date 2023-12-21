@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
-import '../Chatroom.css';
 import UserService from '../services/user.service';
 import AuthService from '../services/auth.service';
 
@@ -64,7 +63,7 @@ const ChatRoom = () => {
   const sendMessage = () => {
     if (message.trim() && user && user.username) {
       const chatMessage = {
-        nickname: user.username,  // Gebruik dezelfde eigenschapsnaam als bij het ontvangen bericht
+        nickname: user.username, 
         content: message,
         timestamp: new Date().toISOString(),
       };
@@ -79,13 +78,13 @@ const ChatRoom = () => {
         {messages.map((msg, index) => (
           <ListItem key={index}>
             <ListItemAvatar>
-              <Avatar>{user.username.charAt(0)}</Avatar>
+              <Avatar>{msg.nickname.charAt(0)}</Avatar>
             </ListItemAvatar>
             <ListItemText
               primary={
                 <React.Fragment>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Typography variant="subtitle1">{user.username}</Typography>
+                    <Typography variant="subtitle1">{msg.nickname}</Typography>
                     <Typography variant="caption" style={{ marginLeft: '1em' }}>
                       {new Intl.DateTimeFormat('nl-NL', {
                         hour: 'numeric',

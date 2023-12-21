@@ -49,7 +49,7 @@ const App = () => {
           {currentUser && (
             <li className="nav-item">
               <Link to={"/public-chat"} className="nav-link">
-                Public Chatroom
+                Chatroom
               </Link>
             </li>
           )}

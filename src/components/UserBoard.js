@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import UserService from "../services/user.service";
 import ChatRoom from "./ChatRoom";
+import PrivateChatRoom from "./PrivateChatRoom";
+
 
 const UserBoard = () => {
   const [content, setContent] = useState("");
@@ -27,6 +29,10 @@ const UserBoard = () => {
     <div className="container">
       <header className="jumbotron">
       <ChatRoom />
+        <h3>{content}</h3>
+      </header>
+      <header className="jumbotron">
+      <PrivateChatRoom />
         <h3>{content}</h3>
       </header>
     </div>
