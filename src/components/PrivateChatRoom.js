@@ -11,7 +11,7 @@ import {
   Button,
   Menu,
   MenuItem,
-} from '@material-ui/core';
+} from '@mui/material';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import UserService from '../services/user.service';
