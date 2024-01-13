@@ -70,7 +70,7 @@ const UserManagement = () => {
   return (
     <div className="container">
       <h1 style={{ color: "white" }}>User Management</h1>
-      <Button variant="light" onClick={handleCleanMessages}>
+      <Button id="clean-messages-btn" variant="light" onClick={handleCleanMessages}>
         Clean Public Chat
       </Button>
       <div>
@@ -93,6 +93,7 @@ const UserManagement = () => {
                 <td style={{ color: "white" }}>{user.email}</td>
                 <td>
                   <Button
+                    id="edit-user-btn"
                     variant="primary"
                     onClick={() => {
                       setEditedUser(user);
@@ -102,6 +103,7 @@ const UserManagement = () => {
                     Edit
                   </Button>
                   <Button
+                    id="delete-user-btn"
                     variant="light"
                     onClick={() => handleDelete(user.id)}
                   >
@@ -126,10 +128,10 @@ const UserManagement = () => {
           </ul>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCancelDelete}>
+          <Button id="cancel-delete-btn" variant="secondary" onClick={handleCancelDelete}>
             Annuleer
           </Button>
-          <Button variant="danger" onClick={handleConfirmDelete}>
+          <Button id="confirm-delete-btn" variant="danger" onClick={handleConfirmDelete}>
             Verwijder
           </Button>
         </Modal.Footer>
@@ -174,10 +176,11 @@ const UserManagement = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+          <Button id="close-edit-modal-btn" variant="secondary" onClick={() => setShowEditModal(false)}>
             Sluit
           </Button>
           <Button
+            id="save-edit-modal-btn"
             variant="primary"
             onClick={() => handleSaveEdit(editedUser.id, editedUser)}
           >

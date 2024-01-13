@@ -187,7 +187,7 @@ const PrivateChatRoom = () => {
           onKeyPress={handleKeyPress}
           fullWidth
         />
-        <IconButton onClick={sendMessage} disabled={!message.trim()}>
+        <IconButton  id="sendprivate" onClick={sendMessage} disabled={!message.trim()}>
           send
         </IconButton>
       </div>

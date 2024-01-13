@@ -107,9 +107,9 @@ const ChatRoom = () => {
           onKeyPress={handleKeyPress}
           fullWidth
         />
-        <IconButton onClick={sendMessage} disabled={!message.trim()}>
-          send
-        </IconButton>
+        <IconButton id="sendpublic" onClick={sendMessage} disabled={!message.trim()}>
+        send
+      </IconButton>
       </div>
     </div>
   );
